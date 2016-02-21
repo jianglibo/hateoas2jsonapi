@@ -1,0 +1,39 @@
+{
+  "name": "hateoas2jsonapi",
+  "version": "1.0.0",
+  "description": "convert hateoas response to jsonapi format",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jianglibo/hateoas2jsonapi.git"
+  },
+  "keywords": [
+    "hateoas",
+    "jsonapi"
+  ],
+  "author": "jianglibo@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jianglibo/hateoas2jsonapi/issues"
+  },
+  "homepage": "https://github.com/jianglibo/hateoas2jsonapi#readme",
+  "devDependencies": {
+    "babel": "^6.5.2",
+    "babel-preset-es2015": "^6.5.0",
+    "del": "^2.2.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-replace": "^0.5.4",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-util": "^3.0.7",
+    "gulp-watch": "^4.3.5",
+    "mocha": "^2.4.5",
+    "qunit": "^0.9.0",
+    "qunitjs": "^1.21.0",
+    "testem": "^1.4.0",
+    "through2": "^2.0.1"
+  }
+}

@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+<title>Test'em</title>
+
+<script src="/node_modules/qunitjs/qunit/qunit.js"></script>
+<!-- <script data-main="src/entry" src="src/require.js"></script> -->
+<script src="test-lib/require.js"></script>
+<script src="/testem.js"></script>
+
+<script>
+var tobetest = ["test-dist/list.js","test-dist/list1.js","test-dist/sum-test.js"];
+require(['test-lib/requirejs-config'], function() {
+    // Configuration loaded now, safe to do other require calls
+    // that depend on that config.
+    require(tobetest, function(foo) {
+      console.log("test finished.");
+    });
+});
+</script>
+<!--
+{{#serve_files}}
+<script src="{{src}}"></script>
+{{/serve_files}}
+-->
+<link rel="stylesheet" href="/node_modules/qunitjs/qunit/qunit.css"/>
+
+</head>
+<body>
+<div id="qunit"></div>
+<div id="qunit-fixture"></div>
+</body>
+</html>

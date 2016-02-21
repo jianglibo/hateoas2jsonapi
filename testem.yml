@@ -1,0 +1,10 @@
+framework: qunit
+disable_watching: true
+test_page: tests.html
+launch_in_ci:
+  - PhantomJS
+launch_in_dev:
+  - PhantomJS
+  # - Chrome
+src_files:
+  - test/*.js
