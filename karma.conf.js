@@ -2,7 +2,7 @@
 // Generated on Mon Feb 22 2016 09:36:41 GMT+0800 (中国标准时间)
 
 module.exports = function(config) {
-  console.log(config);
+  // console.log(config);
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -11,7 +11,7 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['qunit'],
+    frameworks: ['jasmine'],
 
 
     // list of files / patterns to load in the browser
@@ -21,7 +21,8 @@ module.exports = function(config) {
       'node_modules/karma-requirejs/lib/adapter.js',
       {pattern: 'src-dist/*.js', included: false, watched: false},
       {pattern: 'test-dist/*.js', included: false, watched: false},
-      'test-main.js'
+      '_tptn.js',
+      'test-main.js' //watched default.
     ],
 
 

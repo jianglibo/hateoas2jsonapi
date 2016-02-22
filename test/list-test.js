@@ -1,3 +1,5 @@
-QUnit.test( "hello test", (assert) => {
-  assert.ok( 1 == "1", "Passed!" );
+describe('getRelevantStackFrom', function(){
+  it('should equal', function(){
+    expect("1").toEqual("1");
+  });
 });

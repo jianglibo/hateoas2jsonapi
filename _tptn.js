@@ -1,0 +1,1 @@
+var ptn = "sum-test.js";

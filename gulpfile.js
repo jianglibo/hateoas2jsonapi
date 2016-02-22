@@ -98,6 +98,12 @@ gulp.task('preprocess-test', ['process-src'], function() {
 
 gulp.task('karma', ['delete-before', 'preprocess-test'], function() {
   console.log(util.env);
+  var tp = util.env.t;
+  if (tp) {
+    fs.writeFileSync("_tptn.js", 'var ptn = "' + util.env.t + '";');
+  } else {
+    fs.writeFileSync("_tptn.js", 'var ptn = null;');
+  }
 
   watch(["./test/*.js", "./src/*.js"], function() {
     gulp.start("preprocess-test");
