@@ -10,6 +10,17 @@ var util = require('gulp-util');
 var path = require('path');
 var fs = require('fs');
 
+var Server = require('karma').Server;
+var runner = require('karma').runner;
+var karmaConfigFile = __dirname + '/karma.conf.js';
+
+var karmaServer = new Server({
+  configFile: karmaConfigFile
+}, function(exitCode) {
+  console.log('Karma has exited with ' + exitCode);
+  process.exit(exitCode);
+});
+
 var testemob = new testem();
 
 var ciStarted = false;
@@ -71,6 +82,24 @@ gulp.task('testem', ['delete-before', 'preprocess-test'], function() {
         testemob.restart();
       });
     }));
+});
+
+gulp.task('karma', ['delete-before', 'preprocess-test'], function() {
+  console.log(util.env);
+
+  watch(["./test/*.js", "./src/*.js"], function() {
+    gulp.start("preprocess-test");
+  });
+
+  var t = util.env.t || "*.js";
+
+  var td = ["./test/" + t];
+  karmaServer.start();
+  watch(["./test-dist/" + t], function(file) {
+    runner.run({
+      configFile: karmaConfigFile
+    });
+  });
 });
 
 gulp.task('default', ['preprocess-test']);

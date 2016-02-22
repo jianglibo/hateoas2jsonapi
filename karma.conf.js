@@ -18,7 +18,8 @@ module.exports = function(config) {
       // {pattern: 'src-dist', included: false},,'requirejs'
       'node_modules/requirejs/require.js',
       'node_modules/karma-requirejs/lib/adapter.js',
-      {pattern: 'test-dist/*.js', included: false},
+      {pattern: 'src-dist/*.js', included: false, watched: false},
+      {pattern: 'test-dist/*.js', included: false, watched: false},
       'test-main.js'
     ],
 
@@ -59,8 +60,8 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['PhantomJS', 'Chrome'],
-    // browsers: ['PhantomJS'],
+    // browsers: ['PhantomJS', 'Chrome'],
+    browsers: ['PhantomJS'],
 
 
     // Continuous Integration mode
