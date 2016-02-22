@@ -2,6 +2,7 @@
 // Generated on Mon Feb 22 2016 09:36:41 GMT+0800 (中国标准时间)
 
 module.exports = function(config) {
+  console.log(config);
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -71,5 +72,5 @@ module.exports = function(config) {
     // Concurrency level
     // how many browser should be started simultaneous
     concurrency: Infinity
-  })
-}
+  });
+};
