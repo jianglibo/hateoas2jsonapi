@@ -1,1 +1,1 @@
-var ptn = "sum-test.js";
+var ptn = null;

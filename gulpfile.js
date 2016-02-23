@@ -1,5 +1,4 @@
 var gulp = require('gulp');
-var testem = require('testem');
 var babel = require("gulp-babel");
 var sourcemaps = require("gulp-sourcemaps");
 var del = require('del');
