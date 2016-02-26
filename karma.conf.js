@@ -18,22 +18,29 @@ module.exports = function(config) {
     files: [
       // {pattern: 'src-dist', included: false},,'requirejs'
       'node_modules/requirejs/require.js',
-      'node_modules/karma-requirejs/lib/adapter.js',
-      {pattern: 'src-dist/*.js', included: false, watched: false},
-      {pattern: 'test-dist/*.js', included: false, watched: false},
+      'node_modules/karma-requirejs/lib/adapter.js', {
+        pattern: 'src/*.js',
+        included: false //,
+          // watched: false
+      }, {
+        pattern: 'test/*.js',
+        included: false //,
+          // watched: false
+      },
       '_tptn.js',
       'test-main.js' //watched default.
     ],
 
 
     // list of files to exclude
-    exclude: [
-    ],
+    exclude: [],
 
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      "src/**/*.js": ["babel"],
+      "test/**/*.js": ["babel"]
     },
 
 
