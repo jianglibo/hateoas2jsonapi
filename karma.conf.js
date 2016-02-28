@@ -17,9 +17,14 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       // {pattern: 'src-dist', included: false},,'requirejs'
-      'node_modules/requirejs/require.js',
+      'node_modules/babel-polyfill/dist/babel-polyfill.js',
+      'node_modules/requirejs/require.js',{
+        pattern: 'fixtures/**/*.js',
+        included: false //,
+          // watched: false
+      },
       'node_modules/karma-requirejs/lib/adapter.js', {
-        pattern: 'src/*.js',
+        pattern: 'src/**/*.js',
         included: false //,
           // watched: false
       }, {
@@ -40,7 +45,24 @@ module.exports = function(config) {
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
       "src/**/*.js": ["babel"],
-      "test/**/*.js": ["babel"]
+      "test/**/*.js": ["babel"],
+      "fixtures/**/*.js": ["babel"]
+    },
+    babelPreprocessor: {
+      options: {
+        // presets: ['es2015'],
+        // plugins: ["transform-es2015-modules-amd"],
+        sourceMap: 'inline'
+      }//,
+      // filename: function (file) {
+      //   // console.log(file);
+      //   return file.originalPath.replace(/\.js$/, '.es5.js');
+      //   // return file.originalPath;
+      // },
+      // sourceFileName: function (file) {
+      //   // console.log(file + "1");
+      //   return file.originalPath;
+      // }
     },
 
 

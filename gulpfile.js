@@ -22,10 +22,24 @@ var karmaServer = new Server({
   process.exit(exitCode);
 });
 
-karmaServer.on('run_complete', function(browsers, results){
+karmaServer.on('run_complete', function(browsers, results) {
   running = false;
 });
 
+gulp.task("bb", function() {
+  return gulp.src(["src/**/*.js", "fixtures/**/*.js"])
+    // .pipe(sourcemaps.init())
+    .pipe(babel())
+    // .pipe(concat("all.js"))
+    // .pipe(sourcemaps.write("."))
+    .pipe(gulp.dest("dist"));
+});
+
+gulp.task('bbw', function(){
+  watch(["src/**/*.js", "fixtures/**/*.js"], function(){
+    gulp.start('bb');
+  });
+});
 // var testemob = new testem();
 
 var ciStarted = false;
