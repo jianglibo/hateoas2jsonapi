@@ -27,7 +27,7 @@ karmaServer.on('run_complete', function(browsers, results) {
 });
 
 gulp.task("bb", function() {
-  return gulp.src(["src/**/*.js", "fixtures/**/*.js"])
+  return gulp.src(["src/**/*.js", "fixtures/**/*.js", "test/**/*.js"])
     // .pipe(sourcemaps.init())
     .pipe(babel())
     // .pipe(concat("all.js"))

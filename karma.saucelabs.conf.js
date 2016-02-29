@@ -27,12 +27,25 @@ module.exports = function(config) {
         awesome: true
       }
     },
-    'SL_XP_IE8': {
+   'SL_W7_IE8': {
       base: 'SauceLabs',
-      platform: 'Windows XP',
+      platform: 'Windows 7',
       browserName: 'internet explorer',
       version: '8'
     },
+   'SL_W7_IE9': {
+      base: 'SauceLabs',
+      platform: 'Windows 7',
+      browserName: 'internet explorer',
+      version: '9'
+    },
+   'SL_W7_IE10': {
+      base: 'SauceLabs',
+      platform: 'Windows 7',
+      browserName: 'internet explorer',
+      version: '10'
+    },
+
     'SL_Firefox': {
       base: 'SauceLabs',
       platform: 'OS X 10.11',
