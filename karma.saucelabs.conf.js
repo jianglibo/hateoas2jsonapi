@@ -27,12 +27,6 @@ module.exports = function(config) {
         awesome: true
       }
     },
-   'SL_W7_IE8': {
-      base: 'SauceLabs',
-      platform: 'Windows 7',
-      browserName: 'internet explorer',
-      version: '8'
-    },
    'SL_W7_IE9': {
       base: 'SauceLabs',
       platform: 'Windows 7',
@@ -45,7 +39,12 @@ module.exports = function(config) {
       browserName: 'internet explorer',
       version: '10'
     },
-
+   'SL_W7_IE11': {
+      base: 'SauceLabs',
+      platform: 'Windows 7',
+      browserName: 'internet explorer',
+      version: '11'
+    },
     'SL_Firefox': {
       base: 'SauceLabs',
       platform: 'OS X 10.11',
