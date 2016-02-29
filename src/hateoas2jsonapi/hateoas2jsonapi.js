@@ -2,16 +2,13 @@ import traversal from "../json-traversal";
 import EmbeddedVisitor from "./embedded-visitor";
 import NormalAttrsVisitor from "./normal-attrs-visitor";
 import ItemResponseVisitor from "./item-response-visitor";
-import Convertor from "../convertor";
 
 
 /**
  * convertor to convert hateoas format to jsonapi.
- * @extends Convertor
  */
-class Hateoas2Jsonapi extends Convertor {
+class Hateoas2Jsonapi{
   constructor(opts) {
-    super(opts);
   }
 
   convert(obj) {

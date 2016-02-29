@@ -1,5 +1,9 @@
 # JsonConverter
 
+[![Build Status](https://travis-ci.org/jianglibo/json-converter.svg?branch=master)](https://travis-ci.org/jianglibo/json-converter)
+[![Sauce Test Status](https://saucelabs.com/buildstatus/jianglibo)](https://saucelabs.com/u/jianglibo)
+[![Sauce Test Status](https://saucelabs.com/browser-matrix/jianglibo.svg)](https://saucelabs.com/u/jianglibo)
+
 convert json object's value. Usually use to convert server response data format, for instance from hateoas to jsonapi, If your server is spring data, and javascript side is Emberjs.
 
 

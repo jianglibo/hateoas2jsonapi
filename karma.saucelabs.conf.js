@@ -16,6 +16,24 @@ module.exports = function(config) {
         awesome: true
       }
     },
+    'SL_XP_IE8': {
+      base: 'SauceLabs',
+      platform: 'Windows XP',
+      browserName: 'ie',
+      version: '8'
+    },
+    'SL_XP_IE7': {
+      base: 'SauceLabs',
+      platform: 'Windows XP',
+      browserName: 'ie',
+      version: '7'
+    },
+    'SL_XP_IE6': {
+      base: 'SauceLabs',
+      platform: 'Windows XP',
+      browserName: 'ie',
+      version: '6'
+    },
     'SL_Firefox': {
       base: 'SauceLabs',
       platform: 'OS X 10.11',
@@ -111,7 +129,7 @@ module.exports = function(config) {
     logLevel: config.LOG_INFO,
 
     sauceLabs: {
-      testName: 'Karma and Sauce Labs demo',
+      testName: 'json-converter sauceLabs test.',
       recordScreenshots: false,
       connectOptions: {
         port: 5757,
