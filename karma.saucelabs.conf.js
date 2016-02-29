@@ -27,6 +27,12 @@ module.exports = function(config) {
         awesome: true
       }
     },
+   'SL_W7_IE8': {
+      base: 'SauceLabs',
+      platform: 'Windows 7',
+      browserName: 'internet explorer',
+      version: '8'
+    },
    'SL_W7_IE9': {
       base: 'SauceLabs',
       platform: 'Windows 7',
@@ -71,6 +77,7 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       // {pattern: 'src-dist', included: false},,'requirejs'
+      'node_modules/es5-shim/es5-shim.js',
       'node_modules/babel-polyfill/dist/polyfill.js',
       'node_modules/requirejs/require.js', {
         pattern: 'fixtures/**/*.js',
