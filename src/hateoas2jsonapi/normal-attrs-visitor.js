@@ -6,6 +6,7 @@ import Visitor from "../visitor";
 class NormalAttrsVisitor extends Visitor {
   constructor(opts) {
       super(opts);
+      this.opts = this.opts || {};// ie bellow 11 has problem. must add.
     }
     /**
      * move attributes to attributes field.
@@ -19,7 +20,8 @@ class NormalAttrsVisitor extends Visitor {
 
     let kvps = this.getKvp(obj);
     let attributes = {};
-    let idField = (this.opts && this.opts.idField) || "id";
+    // let idField = (this.opts && this.opts.idField) || "id";
+    let idField = this.opts.idField || "id";
 
     kvps.forEach(kvp => {
       let [k, v] = kvp;
