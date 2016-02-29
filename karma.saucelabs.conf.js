@@ -2,6 +2,31 @@
 // Generated on Mon Feb 22 2016 09:36:41 GMT+0800 (中国标准时间)
 
 module.exports = function(config) {
+  if (!process.env.SAUCE_USERNAME || !process.env.SAUCE_ACCESS_KEY) {
+    console.log('Make sure the SAUCE_USERNAME and SAUCE_ACCESS_KEY environment variables are set.');
+    process.exit(1);
+  }
+
+  var customLaunchers = {
+    'SL_Chrome': {
+      base: 'SauceLabs',
+      platform: 'OS X 10.11',
+      browserName: 'chrome',
+      customData: {
+        awesome: true
+      }
+    },
+    'SL_Firefox': {
+      base: 'SauceLabs',
+      platform: 'OS X 10.11',
+      browserName: 'firefox'
+    },
+    'SL_Edge': {
+      base: 'SauceLabs',
+      platform: 'Windows 10',
+      browserName: 'microsoftedge'
+    }
+  };
   // console.log(config);
   config.set({
 
@@ -18,7 +43,7 @@ module.exports = function(config) {
     files: [
       // {pattern: 'src-dist', included: false},,'requirejs'
       'node_modules/babel-polyfill/dist/polyfill.js',
-      'node_modules/requirejs/require.js',{
+      'node_modules/requirejs/require.js', {
         pattern: 'fixtures/**/*.js',
         included: false //,
           // watched: false
@@ -53,7 +78,7 @@ module.exports = function(config) {
         // presets: ['es2015'],
         // plugins: ["transform-es2015-modules-amd"],
         sourceMap: 'inline'
-      }//,
+      } //,
       // filename: function (file) {
       //   // console.log(file);
       //   return file.originalPath.replace(/\.js$/, '.es5.js');
@@ -69,7 +94,8 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    // reporters: ['progress'],
+    reporters: ['progress', 'saucelabs'],
 
 
     // web server port
@@ -84,6 +110,20 @@ module.exports = function(config) {
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
     logLevel: config.LOG_INFO,
 
+    sauceLabs: {
+      testName: 'Karma and Sauce Labs demo',
+      recordScreenshots: false,
+      connectOptions: {
+        port: 5757,
+        logfile: 'sauce_connect.log'
+      },
+      public: 'public'
+    },
+
+    captureTimeout: 120000,
+    customLaunchers: customLaunchers,
+    browsers: Object.keys(customLaunchers),
+    singleRun: true,
 
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: true,
@@ -92,12 +132,12 @@ module.exports = function(config) {
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     // browsers: ['PhantomJS', 'Chrome'],
-    browsers: ['PhantomJS'],
+    // browsers: ['PhantomJS'],
 
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false,
+    // singleRun: false,
 
     // Concurrency level
     // how many browser should be started simultaneous

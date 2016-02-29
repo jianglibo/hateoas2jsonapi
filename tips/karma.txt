@@ -1,0 +1,2 @@
+karma start karma.saucelabs.conf.js
+'test': './node_modules/.bin/karma start --single-run --browsers PhantomJS'

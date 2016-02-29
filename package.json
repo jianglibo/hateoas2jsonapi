@@ -4,7 +4,7 @@
   "description": "convert hateoas response to jsonapi format",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "karma start karma.saucelabs.conf.js"
   },
   "repository": {
     "type": "git",
@@ -45,6 +45,7 @@
     "through2": "^2.0.1"
   },
   "dependencies": {
-    "babel-polyfill": "^6.5.0"
+    "babel-polyfill": "^6.5.0",
+    "karma-sauce-launcher": "^0.3.0"
   }
 }
