@@ -17,7 +17,7 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       // {pattern: 'src-dist', included: false},,'requirejs'
-      'node_modules/es5-shim/es5-shim.js',
+      // 'node_modules/es5-shim/es5-shim.js',
       'node_modules/babel-polyfill/dist/polyfill.js',
       'node_modules/requirejs/require.js',{
         pattern: 'fixtures/**/*.js',
