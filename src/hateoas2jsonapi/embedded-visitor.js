@@ -7,6 +7,7 @@ import Visitor from "../visitor";
 class EmbeddedVisitor extends Visitor {
   constructor(opts) {
     super(opts);
+    this.opts = this.opts || {};
     }
     /**
      * 先从_embedded的key里面获取jsonapi格式所需的type（people），然后将这个type加入到内置的列表中。
@@ -17,24 +18,17 @@ class EmbeddedVisitor extends Visitor {
     }
     let embedded = obj._embedded;
     if (embedded) {
-
-      let kvps = this.getKvp(embedded);
-
-      if (kvps.length > 0) {
-        let [k, v] = kvps[0]; //kvp: [{k: "people", v: [{id:33, name: 'xx'}]}] -- is a list || [{k: "creator", v: {id: 22, name: 'yy'}}] -- is an object.
-
-        if (Array.isArray(v)) {
-          v.forEach(it => {
-            it.type = k;
-          });
-        } else {
-          v.type = k;
-        }
-        // now become {_embedded: {people: [{id:xx, type: 'people'}]}} ==> {"data": [{id:xx, type: 'people'}]}
-        obj.data = embedded[k];
-        delete obj._embedded;
-        return true;
+      let relationships = {};
+      if (!obj.relationships) {
+        obj.relationships = {};
       }
+      let kvps = this.getKvp(embedded);
+      kvps.forEach(kvp => {
+        let [k, v] = kvp;
+        obj.relationships[k] = {data: embedded[k]};
+        delete obj._embedded;
+      });
+      // console.log(embedded.roles[0]);
     }
   }
 }

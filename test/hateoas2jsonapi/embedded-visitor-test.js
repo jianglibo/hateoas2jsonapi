@@ -6,14 +6,8 @@ describe('EmbeddedVisitor', () => {
   it('should equal', () => {
     let p = people();
     traversal(p, new EmbeddedVisitor());
-
-    expect(p.data).toBeTruthy();
-    expect(p._embedded).toBeFalsy();
-    expect(p._links).toBeTruthy();
-    expect(p.page).toBeTruthy();
-    expect(p.data[0]._embedded).toBeFalsy();
-
-    expect(p.data[0].roles).toBeTruthy();
-
+    // console.log(p);
+    expect(p.relationships.people.data).toBeTruthy();
+    expect(Array.isArray(p.relationships.people.data)).toBeTruthy();
   });
 });

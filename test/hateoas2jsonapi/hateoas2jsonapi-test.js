@@ -4,10 +4,11 @@ import people from "../../fixtures/people";
 
 describe('Hateoas2Jsonapi', () => {
   it('should handle single person. init process.', () => {
-    // let convertor = new Hateoas2Jsonapi({modelName: "unknown"});
-    // let p = person();
-    // let result = convertor.convert(p, "person");
-    // expect(result.type).toBeTruthy();
+    let convertor = new Hateoas2Jsonapi({modelName: "person", typePathMap: {person: {role: "roles|_embedded/roles"}}});
+    let p = person();
+    let result = convertor.convert(p, "person");
+    // console.log(result);
+    expect(result.data.type).toBeTruthy();
   });
 
   it('should handle list person. init process.', () => {

@@ -1,7 +1,6 @@
 import traversal from "../json-traversal";
 import EmbeddedVisitor from "./embedded-visitor";
 import NormalAttrsVisitor from "./normal-attrs-visitor";
-import ItemResponseVisitor from "./item-response-visitor";
 
 
 /**
@@ -18,8 +17,12 @@ class Hateoas2Jsonapi {
   constructor(opts) {
     opts = opts || {};
     opts.idField = opts.idField || "id";
+    if (!opts.typePathMap) {
+      throw new Error('opts.typePathMap is required.');
+    }
     opts.typePathMap = opts.typePathMap || {};
     this.opts = opts;
+    this._setvisitors();
   }
 
   /**
@@ -27,34 +30,50 @@ class Hateoas2Jsonapi {
    * @param {String} typePaths - the path to nested models. {role: "roles|_embedded/roles"}
    */
   processTypePaths(model, typePaths) {
-      if (!typePaths) return;
-      let keys = Object.keys(typePaths);
+    // console.log(model._embedded.roles);
+    if (!typePaths) return;
+    let keys = Object.keys(typePaths);
 
-      keys.forEach(k => {
-        let v = typePaths[k];
-        if (v) {
-          let pathes = v.split('|');
-          pathes.forEach(p => {
-            let segs = p.split("/");
-            let nested = null;
-            for (let i = 0; i < segs.length; i++) {
-              nested = model[segs[i]];
-              if (!nested) break;
+    keys.forEach(k => {
+      let v = typePaths[k];
+      if (v) {
+        let pathes = v.split('|');
+        pathes.forEach(p => {
+          let segs = p.split("/");
+          let nested = model;
+          for (let i = 0; i < segs.length; i++) {
+            nested = nested[segs[i]];
+            if (!nested) break;
+          }
+          if (nested) {
+            if (Array.isArray(nested)) {
+              nested.forEach(it => {
+                // console.log(typeof it);
+                if ((typeof it) === 'object') {
+                  it.type = k;
+                  it.__is_model__ = true;
+                }
+                // console.log(it);
+              });
+            } else if (typeof nested === 'object') {
+              nested.type = k;
+              nested.__is_model__ = true;
             }
-            if (nested) {
-              if (Array.isArray(nested)) {
-                nested.forEach(it => {
-                    if (typeof it === 'object') {
-                      it.type = k;
-                    }
-                });
-              } else if (typeof nested === 'object') {
-                nested.type = k;
-              }
-            }
-          });
-        }
-      });
+          }
+        });
+      }
+    });
+  }
+
+  /**
+   * @param {(Visitor|Visitors)} visitors
+   */
+  _setvisitors(...visitors) {
+      if (visitors.length === 0) {
+        visitors.push(new EmbeddedVisitor(this.opts));
+        visitors.push(new NormalAttrsVisitor(this.opts));
+      }
+      this.visitors = visitors;
     }
     /**
      *
@@ -64,7 +83,11 @@ class Hateoas2Jsonapi {
     let typePaths = this.opts.typePathMap[modelName];
     if (obj[idField]) { // it's single item response.
       obj.type = modelName; //TODO type attribute conflict.
+      obj.__is_model__ = true;
       this.processTypePaths(obj, typePaths);
+      return {
+        data: obj
+      };
     } else { //it's list item response.
       if (obj._embedded) {
         let keys = Object.keys(obj._embedded);
@@ -72,6 +95,7 @@ class Hateoas2Jsonapi {
           let listobjs = obj._embedded[keys[0]];
           listobjs.forEach(it => {
             it.type = modelName;
+            it.__is_model__ = true;
             this.processTypePaths(it, typePaths);
           });
           delete obj._embedded;
@@ -87,13 +111,13 @@ class Hateoas2Jsonapi {
    * @return {Object} - jsonapi format object.
    */
   convert(obj, modelName) {
+    if (!(modelName && (typeof modelName) === 'string')) {
+      throw new Error('modelName is required, and must be a string.');
+    }
     obj = this.doInitProcess(obj, modelName);
-    let embeddedVisitor = new EmbeddedVisitor();
-    let normalAttrsVisitor = new NormalAttrsVisitor();
-    let itemResponseVisitor = new ItemResponseVisitor();
-    // traversal(obj, embeddedVisitor);
-    // traversal(obj, normalAttrsVisitor);
-    // traversal(obj, itemResponseVisitor);
+    this.visitors.forEach(vt => {
+      traversal(obj, vt);
+    });
     return obj;
   }
 }
