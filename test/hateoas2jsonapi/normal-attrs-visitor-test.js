@@ -1,6 +1,6 @@
-import NormalAttrsVisitor from "../src/hateoas2jsonapi/normal-attrs-visitor";
-import traversal from "../src/json-traversal";
-import people from "../fixtures/people";
+import NormalAttrsVisitor from "../../src/hateoas2jsonapi/normal-attrs-visitor";
+import traversal from "../../src/json-traversal";
+import people from "../../fixtures/people";
 
 describe('NormalAttrsVisitor', () => {
   it('should equal', () => {

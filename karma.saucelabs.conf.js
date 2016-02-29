@@ -1,7 +1,18 @@
 // Karma configuration
 // Generated on Mon Feb 22 2016 09:36:41 GMT+0800 (中国标准时间)
 
+var fs = require('fs');
+
 module.exports = function(config) {
+  if (!process.env.SAUCE_USERNAME) {
+    if (!fs.existsSync('saucelabs.json')) {
+      console.log('Create a saucelabs.json with your credentials based on the sauce-sample.json file.');
+      process.exit(1);
+    } else {
+      process.env.SAUCE_USERNAME = require('./saucelabs').username;
+      process.env.SAUCE_ACCESS_KEY = require('./saucelabs').accessKey;
+    }
+  }
   if (!process.env.SAUCE_USERNAME || !process.env.SAUCE_ACCESS_KEY) {
     console.log('Make sure the SAUCE_USERNAME and SAUCE_ACCESS_KEY environment variables are set.');
     process.exit(1);
@@ -19,20 +30,8 @@ module.exports = function(config) {
     'SL_XP_IE8': {
       base: 'SauceLabs',
       platform: 'Windows XP',
-      browserName: 'ie',
+      browserName: 'internet explorer',
       version: '8'
-    },
-    'SL_XP_IE7': {
-      base: 'SauceLabs',
-      platform: 'Windows XP',
-      browserName: 'ie',
-      version: '7'
-    },
-    'SL_XP_IE6': {
-      base: 'SauceLabs',
-      platform: 'Windows XP',
-      browserName: 'ie',
-      version: '6'
     },
     'SL_Firefox': {
       base: 'SauceLabs',
@@ -71,7 +70,7 @@ module.exports = function(config) {
         included: false //,
           // watched: false
       }, {
-        pattern: 'test/*.js',
+        pattern: 'test/**/*.js',
         included: false //,
           // watched: false
       },

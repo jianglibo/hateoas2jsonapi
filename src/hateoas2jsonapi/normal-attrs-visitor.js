@@ -15,6 +15,8 @@ class NormalAttrsVisitor extends Visitor {
     if (key === '_links') return;
     if (key === '_embedded') return;
 
+    if (!(parent || key) && key === 'data') return;
+
     let kvps = this.getKvp(obj);
     let attributes = {};
     let {

@@ -1,6 +1,6 @@
-import EmbeddedVisitor from "../src/hateoas2jsonapi/embedded-visitor";
-import traversal from "../src/json-traversal";
-import people from "../fixtures/people";
+import EmbeddedVisitor from "../../src/hateoas2jsonapi/embedded-visitor";
+import traversal from "../../src/json-traversal";
+import people from "../../fixtures/people";
 
 describe('EmbeddedVisitor', () => {
   it('should equal', () => {

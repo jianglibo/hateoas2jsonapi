@@ -28,7 +28,7 @@ module.exports = function(config) {
         included: false //,
           // watched: false
       }, {
-        pattern: 'test/*.js',
+        pattern: 'test/**/*.js',
         included: false //,
           // watched: false
       },
