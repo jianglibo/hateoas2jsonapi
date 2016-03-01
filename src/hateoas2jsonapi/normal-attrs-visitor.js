@@ -6,45 +6,42 @@ import Visitor from "../visitor";
 class NormalAttrsVisitor extends Visitor {
   constructor(opts) {
       super(opts);
-      this.opts = this.opts || {}; // ie bellow 11 has problem. must add.
+      this.opts = this.opts; // ie bellow 11 has problem. must add.
     }
     /**
-     * move attributes to attributes field.
+     * move attributes to attributes field. We only care about model object.
+     * @param {Object} parent - parent context.
+     * @param {String} key - current object's key in parent object.
+     * @param {Object} obj - the object to process.
      */
   visit(parent, key, obj) {
-    if (!obj) return;
-    if (key === '_links') return;
-    if (key === '_embedded') {
-      throw new Error('_embedded must be processed before this visitor.');
-    }
-
     // only if obj is a model.
-    if (obj.__is_model__) {
+    if (obj && obj.__is_model__) {
       let kvps = this.getKvp(obj);
       let attributes = {};
       // let idField = (this.opts && this.opts.idField) || "id";
-      let idField = this.opts.idField || "id";
+      let idField = this.opts.idField;
 
       kvps.forEach(kvp => {
         let [k, v] = kvp;
+        let needMove = false;
         if (k === idField) {
           obj[k] = String(v);
         }  else if(!v) {
-          attributes[k] = v;
-          delete obj[k];
+          needMove = true;
         } else if (k === "type" || (typeof v) === 'object' || (k === '__is_model__')) { //will not process relationships and attributes.
-          noop();
+            needMove = false;
         } else { //move to attributes.
+          needMove = true;
+        }
+        if (needMove) {
           attributes[k] = v;
           delete obj[k];
         }
       });
       obj.attributes = attributes;
-      delete obj.__is_model__;
     }
   }
 }
-
-function noop() {}
 
 export default NormalAttrsVisitor;

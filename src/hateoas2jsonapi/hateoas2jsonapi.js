@@ -1,6 +1,9 @@
 import traversal from "../json-traversal";
 import EmbeddedVisitor from "./embedded-visitor";
 import NormalAttrsVisitor from "./normal-attrs-visitor";
+import MoveobjVisitor from "./moveobj-visitor";
+import CleanupVisitor from './cleanup-visitor';
+
 
 
 /**
@@ -16,16 +19,15 @@ class Hateoas2Jsonapi {
    */
   constructor(opts) {
     opts = opts || {};
-    opts.idField = opts.idField || "id";
-    if (!opts.typePathMap) {
-      throw new Error('opts.typePathMap is required.');
-    }
-    opts.typePathMap = opts.typePathMap || {};
-    this.opts = opts;
+    this.opts = Object.assign({
+      idField: "id",
+      typePathMap: {}
+    }, opts);
     this._setvisitors();
   }
 
   /**
+   * Identify all models in object graph.
    * @param {Object} model - the model to append type info in nested models.
    * @param {String} typePaths - the path to nested models. {role: "roles|_embedded/roles"}
    */
@@ -72,11 +74,16 @@ class Hateoas2Jsonapi {
       if (visitors.length === 0) {
         visitors.push(new EmbeddedVisitor(this.opts));
         visitors.push(new NormalAttrsVisitor(this.opts));
+        visitors.push(new MoveobjVisitor(this.opts));
+        visitors.push(new CleanupVisitor(this.opts));
       }
       this.visitors = visitors;
     }
     /**
-     *
+     * process top level model.
+     * @param {Object} obj - the origin object to convert.
+     * @param {String} modelName - the model name of the response.
+     * @return {Object} - normalized top level object.
      */
   doInitProcess(obj, modelName) {
     let idField = this.opts.idField;

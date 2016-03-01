@@ -6,18 +6,15 @@ import Visitor from "../visitor";
  */
 class EmbeddedVisitor extends Visitor {
   constructor(opts) {
-    super(opts);
-    this.opts = this.opts || {};
+      super(opts);
+      this.opts = this.opts;
     }
     /**
-     * 先从_embedded的key里面获取jsonapi格式所需的type（people），然后将这个type加入到内置的列表中。
+     * only process _embedded object.
      */
   visit(parent, key, obj) {
-    if (!obj) {
-      return;
-    }
-    let embedded = obj._embedded;
-    if (embedded) {
+    if (obj && obj._embedded) {
+      let embedded = obj._embedded;
       let relationships = {};
       if (!obj.relationships) {
         obj.relationships = {};
@@ -25,10 +22,11 @@ class EmbeddedVisitor extends Visitor {
       let kvps = this.getKvp(embedded);
       kvps.forEach(kvp => {
         let [k, v] = kvp;
-        obj.relationships[k] = {data: embedded[k]};
+        obj.relationships[k] = {
+          data: embedded[k]
+        };
         delete obj._embedded;
       });
-      // console.log(embedded.roles[0]);
     }
   }
 }

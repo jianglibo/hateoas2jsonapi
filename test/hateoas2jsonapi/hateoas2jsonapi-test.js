@@ -7,7 +7,9 @@ describe('Hateoas2Jsonapi', () => {
     let convertor = new Hateoas2Jsonapi({modelName: "person", typePathMap: {person: {role: "roles|_embedded/roles"}}});
     let p = person();
     let result = convertor.convert(p, "person");
-    // console.log(result);
+
+    expect(Object.keys(result)).toEqual(['data']);
+    expect(result.data.relationships.roles.data).toBeTruthy();
     expect(result.data.type).toBeTruthy();
   });
 
