@@ -1,25 +1,26 @@
 {
-  "name": "hateoas2jsonapi",
+  "name": "json-converter",
   "version": "1.0.0",
-  "description": "convert hateoas response to jsonapi format",
+  "description": "convert json object. for example from hateoas to jsonapi",
   "main": "index.js",
   "scripts": {
     "test": "karma start karma.saucelabs.conf.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jianglibo/hateoas2jsonapi.git"
+    "url": "git+https://github.com/jianglibo/json-converter.git"
   },
   "keywords": [
     "hateoas",
-    "jsonapi"
+    "jsonapi",
+    "emberjs"
   ],
   "author": "jianglibo@gmail.com",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jianglibo/hateoas2jsonapi/issues"
+    "url": "https://github.com/jianglibo/json-converter/issues"
   },
-  "homepage": "https://github.com/jianglibo/hateoas2jsonapi#readme",
+  "homepage": "https://github.com/jianglibo/json-converter#readme",
   "devDependencies": {
     "babel": "^6.5.2",
     "babel-plugin-transform-es2015-modules-amd": "^6.5.0",
@@ -41,10 +42,10 @@
     "mocha": "^2.4.5",
     "phantomjs-prebuilt": "^2.1.4",
     "requirejs": "^2.1.22",
-    "through2": "^2.0.1"
+    "through2": "^2.0.1",
+    "karma-sauce-launcher": "^0.3.0",
+    "babel-polyfill": "^6.5.0"
   },
   "dependencies": {
-    "babel-polyfill": "^6.5.0",
-    "karma-sauce-launcher": "^0.3.0"
   }
 }
