@@ -21,6 +21,7 @@ function moveToRelationships(obj, k, value) {
 class MoveobjVisitor extends Visitor {
   constructor(opts) {
       super(opts);
+      this.opts = opts; //ie9,10
     }
     /**
      * process all object type in graph who is:

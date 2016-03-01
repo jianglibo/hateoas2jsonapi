@@ -7,6 +7,7 @@ import Visitor from "../visitor";
 class EmbeddedVisitor extends Visitor {
   constructor(opts) {
       super(opts);
+      this.opts = opts; //ie9,10
     }
     /**
      * only process _embedded object. we treat _embedded content as models. always.

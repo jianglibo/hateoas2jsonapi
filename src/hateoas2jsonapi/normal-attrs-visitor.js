@@ -6,6 +6,7 @@ import Visitor from "../visitor";
 class NormalAttrsVisitor extends Visitor {
   constructor(opts) {
       super(opts);
+      this.opts = opts; //ie9,10
     }
     /**
      * move attributes to attributes field. We only care about model object.

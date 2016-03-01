@@ -7,6 +7,7 @@ import Visitor from "../visitor";
 class CleanupVisitor extends Visitor {
   constructor(opts) {
       super(opts);
+      this.opts = opts; //ie9,10
     }
     /**
      * only process _embedded object.
