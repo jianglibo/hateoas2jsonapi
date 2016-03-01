@@ -4,12 +4,12 @@ export default {
   "reportTo": ["http://yourdomain.com/callback", "youremail@yourdomain.com", "137777777777"],
   "_embedded": {
     "creator": {
-      "displayName": "1b6e5cf7a5f6434a934f9a040b65238a@openscanner.cc",
+      "displayName": "1b6e5cf7a5f6434a934f9a040b65238a@m3958.com",
       "id": 3,
       "level": 1,
       "createdAt": "2015-08-29T08:17:29.705+0000",
       "gender": "FEMAIL",
-      "email": "1b6e5cf7a5f6434a934f9a040b65238a@openscanner.cc",
+      "email": "1b6e5cf7a5f6434a934f9a040b65238a@m3958.com",
       "avatar": "",
       "ucOpenId": "1b6e5cf7a5f6434a934f9a040b65238a",
       "roles": [{

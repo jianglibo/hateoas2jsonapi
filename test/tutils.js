@@ -1,6 +1,5 @@
 export function opts() {
   return {
-    modelName: "person",
     typePathMap: {
       person: {
         role: "roles|_embedded/roles",
