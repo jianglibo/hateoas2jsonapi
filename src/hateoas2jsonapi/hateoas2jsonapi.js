@@ -21,6 +21,10 @@ class Hateoas2Jsonapi {
     opts = opts || {};
     this.opts = Object.assign({
       idField: "id",
+      metaField: {
+        expect: "page",
+        substitute: "meta"
+      },
       typePathMap: {}
     }, opts);
     this._setvisitors();
@@ -76,6 +80,7 @@ class Hateoas2Jsonapi {
         visitors.push(new NormalAttrsVisitor(this.opts));
         visitors.push(new MoveobjVisitor(this.opts));
         visitors.push(new CleanupVisitor(this.opts));
+        //whats left? list response's top object is not a model.
       }
       this.visitors = visitors;
     }
@@ -96,6 +101,11 @@ class Hateoas2Jsonapi {
         data: obj
       };
     } else { //it's list item response.
+      let metaField = this.opts.metaField;
+      if (metaField.expect !== metaField.substitute) {
+        obj[metaField.substitute] = obj[metaField.expect];
+        delete obj[metaField.expect];
+      }
       if (obj._embedded) {
         let keys = Object.keys(obj._embedded);
         if (keys.length > 0) {

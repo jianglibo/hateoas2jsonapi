@@ -4,12 +4,13 @@ import traversal from "../../src/json-traversal";
 import Hateoas2Jsonapi from "../../src/hateoas2jsonapi/hateoas2jsonapi";
 import people from "../../fixtures/people";
 import person from "../../fixtures/person";
+import {opts} from "../tutils";
 
 
 describe('NormalAttrsVisitor', () => {
   it('should process single person', () => {
     let p = person();
-    let convertor = new Hateoas2Jsonapi({modelName: "person", typePathMap: {person: {role: "roles|_embedded/roles"}}});
+    let convertor = new Hateoas2Jsonapi(opts());
     convertor._setvisitors(new NormalAttrsVisitor());
     let onePerson = convertor.convert(p, 'person');
     expect(onePerson.data).toBeTruthy();
@@ -19,7 +20,7 @@ describe('NormalAttrsVisitor', () => {
 
   it('should process list of person', () => {
     let p = people();
-    let convertor = new Hateoas2Jsonapi({modelName: "person", typePathMap: {person: {role: "roles|_embedded/roles"}}});
+    let convertor = new Hateoas2Jsonapi(opts());
     convertor._setvisitors(new EmbeddedVisitor(), new NormalAttrsVisitor());
     let result = convertor.convert(p, 'person');
 

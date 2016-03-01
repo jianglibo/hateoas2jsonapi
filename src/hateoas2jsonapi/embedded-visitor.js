@@ -10,20 +10,25 @@ class EmbeddedVisitor extends Visitor {
       this.opts = this.opts;
     }
     /**
-     * only process _embedded object.
+     * only process _embedded object. we treat _embedded content as models. always.
+     * if we find embedded object is not a model, an exception will be thrown.
      */
   visit(parent, key, obj) {
     if (obj && obj._embedded) {
       let embedded = obj._embedded;
-      let relationships = {};
-      if (!obj.relationships) {
-        obj.relationships = {};
-      }
+      obj.relationships = obj.relationships || {};
       let kvps = this.getKvp(embedded);
       kvps.forEach(kvp => {
         let [k, v] = kvp;
+        if (Array.isArray(v) && v.length > 0) {
+          if (!v[0].__is_model__) {
+            throw new Error('_embedded content must be models.');
+          }
+        } else if (typeof v === 'object' && !v.__is_model__) {
+            throw new Error('_embedded content must be models.');
+        }
         obj.relationships[k] = {
-          data: embedded[k]
+          data: v
         };
         delete obj._embedded;
       });
@@ -32,38 +37,3 @@ class EmbeddedVisitor extends Visitor {
 }
 
 export default EmbeddedVisitor;
-/**
-single
-{
-  "data": {
-    "type": "articles",
-    "id": "1",
-    "attributes": {
-      // ... this article's attributes
-    },
-    "relationships": {
-      // ... this article's relationships
-    }
-  }
-}
-*/
-
-/**
-"_embedded": {
-  "people": [ {
-    "id": 4,
-
-list
-{
-  "data": [{
-    "type": "articles",
-    "id": "1",
-    "attributes": {
-      // ... this article's attributes
-    },
-    "relationships": {
-      // ... this article's relationships
-    }
-  }]
-}
-*/
