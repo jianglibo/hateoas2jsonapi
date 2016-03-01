@@ -11,7 +11,7 @@ describe('NormalAttrsVisitor', () => {
   it('should process single person', () => {
     let p = person();
     let convertor = new Hateoas2Jsonapi(opts());
-    convertor._setvisitors(new NormalAttrsVisitor());
+    convertor._setvisitors(new NormalAttrsVisitor(opts()));
     let onePerson = convertor.convert(p, 'person');
     expect(onePerson.data).toBeTruthy();
     expect(onePerson.data.lastScheduleExec).toBeUndefined();
@@ -21,7 +21,7 @@ describe('NormalAttrsVisitor', () => {
   it('should process list of person', () => {
     let p = people();
     let convertor = new Hateoas2Jsonapi(opts());
-    convertor._setvisitors(new EmbeddedVisitor(), new NormalAttrsVisitor());
+    convertor._setvisitors(new EmbeddedVisitor(opts()), new NormalAttrsVisitor(opts()));
     let result = convertor.convert(p, 'person');
 
     let onePerson = result.data[0];
