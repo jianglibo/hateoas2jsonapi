@@ -19,6 +19,7 @@ class NormalAttrsVisitor extends Visitor {
       let kvps = this.getKvp(obj);
       let attributes = {};
       // let idField = (this.opts && this.opts.idField) || "id";
+      console.log(this); //ie9,10 this.opts === undefined.
       let idField = this.opts.idField;
 
       kvps.forEach(kvp => {
